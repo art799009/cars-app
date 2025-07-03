@@ -1,0 +1,601 @@
+
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>柱碰計算機 + 全車計算器</title>
+<style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .tab-header {
+      display: flex;
+    }
+    .tab-header div {
+      flex: 1;
+      padding: 1rem;
+      text-align: center;
+      cursor: pointer;
+      font-weight: bold;
+      border-bottom: 3px solid transparent;
+    }
+    .tab-header div.active {
+      border-bottom: 3px solid #4CAF50;
+    }
+    .tab-content {
+      display: none;
+      padding: 1rem;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    /* 以下為各自樣式區 */
+    body {
+      font-family: sans-serif;
+      padding: 1rem;
+      text-align: center;
+    }
+    .grid-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+    input[type="number"] {
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 0.8rem;
+      padding: 0.2rem;
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.15rem;
+      text-align: center;
+      font-size: 0.8rem;
+      min-width: 3.5rem;
+    }
+    .result {
+      font-weight: bold;
+      font-size: 0.8rem;
+      margin: 1rem 0;
+    }
+    button {
+      padding: 0.3rem 0.8rem;
+      font-size: 0.9rem;
+    }
+  
+input[type="number"] {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 0.8rem;
+  padding: 0.3rem;
+  text-align: center;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  transition: 0.2s ease;
+}
+input[type="number"]:focus {
+  outline: none;
+}
+    body {
+      font-family: sans-serif;
+      padding: 1em;
+      display: flex;
+      justify-content: center;
+    }
+    .card {
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 1em;
+      max-width: 420px;
+      width: 100%;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    th, td {
+      width: 16.66%;
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+      word-wrap: break-word;
+    }
+    th {
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 6px;
+      font-size: 1em;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    td.total-cost {
+    }
+    button {
+      width: 48%;
+      padding: 10px;
+      font-size: 1em;
+      margin-top: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+    }
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+    }
+  
+.tab-header {
+  font-size: 0.95rem;
+}
+.tab-header div {
+  padding: 0.6rem 0.3rem;
+}
+.tab-content {
+  padding: 0.5rem;
+}
+
+/* 調整所有按鈕為一致小巧樣式 */
+button {
+  font-size: 0.85rem !important;
+  padding: 6px 12px !important;
+  border-radius: 8px !important;
+  width: auto !important;
+  min-width: 72px;
+}
+.button-row button {
+  width: 48% !important;
+  padding: 8px 0 !important;
+}
+
+/* 縮小並美化切換頁籤按鍵 */
+.tab-header {
+  font-size: 0.85rem;
+}
+
+.tab-header .tab-link {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  height: 28px;
+  line-height: 20px;
+  border-radius: 6px;
+  background-color: #eee;
+  color: #333;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+.tab-header .tab-link.active {
+  background-color: #b8f5b8 !important;
+  color: #000 !important;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.tab-header .tab-link.active {
+  border-bottom: 2px solid #4CAF50;
+}
+
+/* 最終微調切換鍵樣式與文字 */
+.tab-header {
+  font-size: 0.8rem;
+}
+
+.tab-header .tab-link {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  height: 28px;
+  line-height: 20px;
+  border-radius: 6px;
+  background-color: #eee;
+  color: #333;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+.tab-header .tab-link.active {
+  background-color: #b8f5b8 !important;
+  color: #000 !important;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.tab-header .tab-link.active {
+  border-bottom: 2px solid #4CAF50;
+}
+
+/* 專注調整切換按鍵的文字與高度 */
+
+.tab-header .tab-link {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  height: 28px;
+  line-height: 20px;
+  border-radius: 6px;
+  background-color: #eee;
+  color: #333;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+.tab-header .tab-link.active {
+  background-color: #b8f5b8 !important;
+  color: #000 !important;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+
+
+.tab-header .tab-link {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  height: 28px;
+  line-height: 20px;
+  border-radius: 6px;
+  background-color: #eee;
+  color: #333;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+.tab-header .tab-link.active {
+  background-color: #b8f5b8 !important;
+  color: #000 !important;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.tab-header .tab-link.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+
+.tab-header .tab-link {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  height: 28px;
+  line-height: 20px;
+  border-radius: 6px;
+  background-color: #eee;
+  color: #333;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+.tab-header .tab-link.active {
+  background-color: #b8f5b8 !important;
+  color: #000 !important;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.tab-header .tab-link:hover {
+}
+.tab-header .tab-link.active {
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.tab-content {
+}
+
+.tab-content {
+  padding: 0 !important;
+}
+
+body {
+}
+.card, .card-content, .tab-content > div {
+}
+
+.tab-content * {
+}
+
+.tab-content > div {
+}
+
+.tab-content > div {
+}
+
+#tab-0 > div, #tab-1 > div {
+}
+
+.tab-header .tab-link {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  height: 28px;
+  line-height: 20px;
+  border-radius: 6px;
+  background-color: #eee;
+  color: #333;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+.tab-header .tab-link.active {
+  background-color: #b8f5b8 !important;
+  color: #000 !important;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.tab-header .tab-link.active {
+  background-color: #c7f6c7;
+  color: #000;
+  font-weight: bold;
+}
+
+.tab-link {
+  background-color: #eee;
+  color: #333;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.tab-link.active {
+  background-color: #c7f6c7 !important;
+  color: #000 !important;
+  font-weight: bold;
+}
+
+.tab-link.active.tab-0 {
+  background-color: #b8f5b8 !important;
+}
+.tab-link.active.tab-1 {
+  background-color: #fff46b !important;
+}
+
+</style>
+</head>
+<body>
+<div class="tab-content active" id="tab-0">
+<div style="max-width: 420px; margin: 0 auto;  padding: 0.8rem; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.08); margin-bottom: 1rem;"><div class="tab-header" style="display: flex; justify-content: space-around; margin: 1rem 0; gap: 0.5rem;">
+<div class="tab-link active" onclick="switchTab(0)">柱碰計算機</div>
+<div class="tab-link" onclick="switchTab(1)">全車計算器</div>
+</div>
+<div id="pillars-row1" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.1rem;"></div>
+<div id="pillars-row2" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.1rem; margin-top: 0.3rem;"></div>
+</div>
+<div style="max-width: 420px; margin: 0 auto;  padding: 1rem; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+<table style="width: 100%;">
+<thead>
+<tr>
+<th>項目</th><th>碰數</th><th>倍數</th><th>支數</th><th>每支金額</th><th>總金額</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>二星</td>
+<td id="c2">0</td>
+<td><input id="m2" min="0" type="number" value="0"/></td>
+<td id="s2">0</td>
+<td><input id="a2" type="number" value="74"/></td>
+<td id="t2">0.0</td>
+</tr>
+<tr>
+<td>三星</td>
+<td id="c3">0</td>
+<td><input id="m3" min="0" type="number" value="0"/></td>
+<td id="s3">0</td>
+<td><input id="a3" type="number" value="64"/></td>
+<td id="t3">0.0</td>
+</tr>
+<tr>
+<td>四星</td>
+<td id="c4">0</td>
+<td><input id="m4" min="0" step="0.1" type="number" value="0"/></td>
+<td id="s4">0</td>
+<td><input id="a4" type="number" value="60"/></td>
+<td id="t4">0.0</td>
+</tr>
+</tbody>
+</table>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 1rem;"><div class="result" id="totalResult" style="margin: 0;">總支數：0.0｜總投注金額：0.0</div><button onclick="resetAll()">一鍵清除</button></div></div>
+<script>
+    const row1 = document.getElementById("pillars-row1");
+    const row2 = document.getElementById("pillars-row2");
+    for (let i = 1; i <= 10; i++) {
+      const div = document.createElement("div");
+      div.className = "grid-cell";
+      const label = document.createElement("label");
+      label.textContent = `第${i}柱`;
+      const input = document.createElement("input");
+      input.type = "number";
+      input.min = 0;
+      input.max = 10;
+      input.id = `n${i}`;
+      div.appendChild(label);
+      div.appendChild(input);
+      (i <= 5 ? row1 : row2).appendChild(div);
+    }
+
+    document.querySelectorAll("input").forEach(input => {
+      input.addEventListener("input", calculate);
+    });
+
+    function getValidPillars() {
+      const pillars = [];
+      for (let i = 1; i <= 10; i++) {
+        const val = parseInt(document.getElementById(`n${i}`).value);
+        if (!isNaN(val) && val > 0) {
+          pillars.push([val]);
+        }
+      }
+      return pillars;
+    }
+
+    function combine(arr, size) {
+      const results = [];
+      function helper(start, combo) {
+        if (combo.length === size) {
+          results.push(combo);
+          return;
+        }
+        for (let i = start; i < arr.length; i++) {
+          helper(i + 1, combo.concat([arr[i]]));
+        }
+      }
+      helper(0, []);
+      return results;
+    }
+
+    function calculateCrossCounts(pillars, size) {
+      const groups = combine(pillars, size);
+      let total = 0;
+      groups.forEach(group => {
+        total += group.reduce((acc, curr) => acc * curr[0], 1);  // curr[0] 是每柱的數量
+      });
+      return total;
+    }
+
+    function calculate() {
+      const pillars = getValidPillars();
+      const c2 = calculateCrossCounts(pillars, 2);
+      const c3 = calculateCrossCounts(pillars, 3);
+      const c4 = calculateCrossCounts(pillars, 4);
+
+      const m2 = parseFloat(document.getElementById("m2").value) || 0;
+      const m3 = parseFloat(document.getElementById("m3").value) || 0;
+      const m4 = parseFloat(document.getElementById("m4").value) || 0;
+
+      const a2 = parseFloat(document.getElementById("a2").value) || 0;
+      const a3 = parseFloat(document.getElementById("a3").value) || 0;
+      const a4 = parseFloat(document.getElementById("a4").value) || 0;
+
+      const s2 = c2 * m2;
+      const s3 = c3 * m3;
+      const s4 = c4 * m4;
+
+      const t2 = s2 * a2;
+      const t3 = s3 * a3;
+      const t4 = s4 * a4;
+
+      document.getElementById("c2").innerText = c2;
+      document.getElementById("s2").innerText = s2.toFixed(1);
+      document.getElementById("t2").innerText = t2.toFixed(1);
+
+      document.getElementById("c3").innerText = c3;
+      document.getElementById("s3").innerText = s3.toFixed(1);
+      document.getElementById("t3").innerText = t3.toFixed(1);
+
+      document.getElementById("c4").innerText = c4;
+      document.getElementById("s4").innerText = s4.toFixed(1);
+      document.getElementById("t4").innerText = t4.toFixed(1);
+
+      const totalSet = s2 + s3 + s4;
+      const totalBet = t2 + t3 + t4;
+      document.getElementById("totalResult").innerText = `總支數：${totalSet.toFixed(1)}｜總投注金額：${totalBet.toFixed(1)}`;
+    }
+
+    function resetAll() {
+      for (let i = 1; i <= 10; i++) {
+        document.getElementById(`n${i}`).value = "";
+      }
+      ["m2", "m3", "m4"].forEach(id => document.getElementById(id).value = 0);
+
+      ["c2","c3","c4","s2","s3","s4","t2","t3","t4"].forEach(id => document.getElementById(id).innerText = "0");
+      document.getElementById("totalResult").innerText = `總支數：0.0｜總投注金額：0.0`;
+    }
+  </script>
+</div>
+<div class="tab-content" id="tab-1">
+<div class="card"><div class="tab-header" style="display: flex; justify-content: space-around; margin: 1rem 0; gap: 0.5rem;">
+<div class="tab-link active" onclick="switchTab(0)">柱碰計算機</div>
+<div class="tab-link" onclick="switchTab(1)">全車計算器</div>
+</div>
+<table>
+<thead>
+<tr>
+<th>柱數</th>
+<th>車數</th>
+<th>每注金額</th>
+<th>總本金</th>
+<th>總獎金</th>
+<th>淨利</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><input id="betCount" min="0" type="number" value="1"/></td>
+<td><input id="carCount" min="0" step="0.001" type="number" value="1"/></td>
+<td><input id="amountPerCar" min="0" step="0.01" type="number" value="74"/></td>
+<td class="total-cost"><span id="totalCost">0</span></td>
+<td><span id="totalReward">0</span></td>
+<td><span id="netProfit">0</span></td>
+</tr>
+</tbody>
+</table>
+<div class="button-row">
+<button onclick="calculate()">計算</button>
+<button onclick="resetForm()">清空</button>
+</div>
+</div>
+<script>
+    function calculate() {
+      const betCount = parseFloat(document.getElementById('betCount').value) || 0;
+      const carCount = parseFloat(document.getElementById('carCount').value) || 0;
+      const amountPerCar = parseFloat(document.getElementById('amountPerCar').value) || 0;
+      const rewardPerCar = 21200; // 固定值
+      const linesPerCar = 38;     // 固定值
+
+      const totalCost = betCount * carCount * amountPerCar * linesPerCar;
+      const totalReward = betCount * carCount * rewardPerCar;
+      const netProfit = totalReward - totalCost;
+
+      document.getElementById('totalCost').textContent = totalCost.toLocaleString(undefined, {maximumFractionDigits: 2});
+      document.getElementById('totalReward').textContent = totalReward.toLocaleString(undefined, {maximumFractionDigits: 2});
+      document.getElementById('netProfit').textContent = netProfit.toLocaleString(undefined, {maximumFractionDigits: 2});
+    }
+
+    function resetForm() {
+      document.getElementById('betCount').value = '';
+      document.getElementById('carCount').value = '';
+      document.getElementById('totalCost').textContent = '0';
+      document.getElementById('totalReward').textContent = '0';
+      document.getElementById('netProfit').textContent = '0';
+    }
+  </script>
+</div>
+<script>
+    
+function switchTab(index) {
+  document.querySelectorAll('.tab-content').forEach((el, i) => {
+    el.classList.toggle('active', i === index);
+  });
+  document.querySelectorAll('.tab-link').forEach((el, i) => {
+    el.classList.toggle('active', i === index);
+    if (i === index) {
+      el.classList.add(`tab-${i}`);
+    } else {
+      el.classList.remove(`tab-0`, `tab-1`);
+    }
+  });
+
+      document.querySelectorAll('.tab-content').forEach((el, i) => {
+        el.classList.toggle('active', i === index);
+      });
+      document.querySelectorAll('.tab-link').forEach((el, i) => {
+        el.classList.toggle('active', i === index);
+      });
+    }
+    </script>
+</body>
+</html>
